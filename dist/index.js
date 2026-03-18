@@ -100,22 +100,31 @@ function listarConsultasPorStatus(consultas, status) {
     return consultas.filter((consulta) => consulta.status === status);
 }
 const consultas = [];
-const consulta1 = criarConsulta(1, medico1, paciente1, new Date(), 350);
-const consulta2 = criarConsulta(2, medico2, paciente2, new Date(), 400);
-const consulta3 = criarConsulta(3, medico3, paciente3, new Date(), 500);
-const consulta4 = criarConsulta(4, medico3, paciente1, new Date(), 120);
-const consultaConfirmada1 = confirmarConsulta(consulta1);
-const consultaConfirmada2 = confirmarConsulta(consulta2);
-consultas.push(consultaConfirmada1, consultaConfirmada2, consulta3, consulta4);
-console.log("=== LISTAR CONSULTAS POR STATUS ===");
-for (const consulta of listarConsultasPorStatus(consultas, "confirmada")) {
-    console.log(exibirConsulta(consulta));
-}
-console.log("=== LISTAR CONSULTAS FUTURAS ===");
 function listarConsultasFuturas(consultas) {
     const hoje = new Date();
     hoje.setHours(0, 0, 0, 0); // Zera horas para comparar apenas a data
     return consultas.filter((consulta) => consulta.data >= hoje);
 }
-console.log(listarConsultasFuturas(consultas).map(exibirConsulta).join("\n"));
+function alterarStatusConsulta(consulta, novoStatus) {
+    return {
+        ...consulta,
+        status: novoStatus,
+    };
+}
+let consulta1 = criarConsulta(1, medico1, paciente1, new Date(), 350);
+consulta1 = confirmarConsulta(consulta1);
+let consulta2 = criarConsulta(2, medico2, paciente2, new Date(), 400);
+let consulta3 = criarConsulta(3, medico3, paciente3, new Date(), 500);
+consulta3 = alterarStatusConsulta(consulta3, "realizada");
+let consulta4 = criarConsulta(4, medico3, paciente1, new Date(), 120);
+consulta4 = alterarStatusConsulta(consulta4, "cancelada");
+consultas.push(consulta1, consulta2, consulta3, consulta4);
+console.log("=== LISTAR CONSULTAS POR STATUS ===");
+for (const consulta of listarConsultasPorStatus(consultas, "confirmada")) {
+    console.log(exibirConsulta(consulta));
+}
+console.log("=== LISTAR CONSULTAS FUTURAS ===");
+for (const consulta of listarConsultasFuturas(consultas)) {
+    console.log(exibirConsulta(consulta));
+}
 //# sourceMappingURL=index.js.map

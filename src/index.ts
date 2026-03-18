@@ -117,7 +117,21 @@ function listarConsultasPorStatus(consultas: Consulta[],status: StatusConsulta):
 
 const consultas: Consulta[] = [];
 
-const consulta1 = criarConsulta(
+function listarConsultasFuturas(consultas: Consulta[]): Consulta[] {
+  const hoje = new Date();
+  hoje.setHours(0, 0, 0, 0); // Zera horas para comparar apenas a data
+  return consultas.filter((consulta) => consulta.data >= hoje);
+}
+
+function alterarStatusConsulta(consulta: Consulta, novoStatus: StatusConsulta): Consulta {
+    return {
+        ...consulta,
+        status: novoStatus,
+    }
+}
+
+
+let consulta1 = criarConsulta(
   1,
   medico1,
   paciente1,
@@ -125,7 +139,9 @@ const consulta1 = criarConsulta(
   350
 );
 
-const consulta2 = criarConsulta(
+consulta1 = confirmarConsulta(consulta1);
+
+let consulta2 = criarConsulta(
   2,
   medico2,
   paciente2,
@@ -133,7 +149,7 @@ const consulta2 = criarConsulta(
   400
 );
 
-const consulta3 = criarConsulta(
+let consulta3 = criarConsulta(
   3,
   medico3,
   paciente3,
@@ -141,7 +157,9 @@ const consulta3 = criarConsulta(
   500
 );
 
-const consulta4 = criarConsulta(
+consulta3 = alterarStatusConsulta(consulta3, "realizada");
+
+let consulta4 = criarConsulta(
     4,
     medico3,
     paciente1,
@@ -149,11 +167,10 @@ const consulta4 = criarConsulta(
     120
 );
 
+consulta4 = alterarStatusConsulta(consulta4, "cancelada");
 
-const consultaConfirmada1 = confirmarConsulta(consulta1);
-const consultaConfirmada2 = confirmarConsulta(consulta2);
 
-consultas.push(consultaConfirmada1, consultaConfirmada2, consulta3, consulta4);
+consultas.push(consulta1,  consulta2, consulta3, consulta4);
 
 console.log("=== LISTAR CONSULTAS POR STATUS ===");
 for (const consulta of listarConsultasPorStatus(consultas, "confirmada")) {
@@ -161,10 +178,7 @@ for (const consulta of listarConsultasPorStatus(consultas, "confirmada")) {
 }
 
 console.log("=== LISTAR CONSULTAS FUTURAS ===");
-function listarConsultasFuturas(consultas: Consulta[]): Consulta[] {
-  const hoje = new Date();
-  hoje.setHours(0, 0, 0, 0); // Zera horas para comparar apenas a data
-  return consultas.filter((consulta) => consulta.data >= hoje);
-}
 
-console.log(listarConsultasFuturas(consultas).map(exibirConsulta).join("\n"));
+for (const consulta of listarConsultasFuturas(consultas)) {
+    console.log(exibirConsulta(consulta))
+}
