@@ -111,12 +111,11 @@ Status: ${consulta.status}
 `;
 }
 
-function listarConsultasPorStatus(
-  consultas: Consulta[],
-  status: StatusConsulta
-): Consulta[] {
-  return consultas.filter((consulta) => consulta.status === status);
+function listarConsultasPorStatus(consultas: Consulta[],status: StatusConsulta): Consulta[] {
+    return consultas.filter((consulta) => consulta.status === status);
 }
+
+const consultas: Consulta[] = [];
 
 const consulta1 = criarConsulta(
   1,
@@ -142,8 +141,12 @@ const consulta3 = criarConsulta(
   500
 );
 
-const consultaConfirmada = confirmarConsulta(consulta1);
-console.log("=== CONSULTA CONFIRMADA ===");
-console.log(exibirConsulta(consultaConfirmada));
+const consultaConfirmada1 = confirmarConsulta(consulta1);
+const consultaConfirmada2 = confirmarConsulta(consulta2);
+
+consultas.push(consultaConfirmada1, consultaConfirmada2, consulta3);
+
 console.log("=== LISTAR CONSULTAS POR STATUS ===");
-console.log(listarConsultasPorStatus([consultaConfirmada], "confirmada"));
+for (const consulta of listarConsultasPorStatus(consultas, "confirmada")) {
+    console.log(exibirConsulta(consulta))
+}

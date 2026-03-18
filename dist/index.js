@@ -96,8 +96,18 @@ Valor: ${valorFormatado}
 Status: ${consulta.status}
 `;
 }
+function listarConsultasPorStatus(consultas, status) {
+    return consultas.filter((consulta) => consulta.status === status);
+}
+const consultas = [];
 const consulta1 = criarConsulta(1, medico1, paciente1, new Date(), 350);
-const consultaConfirmada = confirmarConsulta(consulta1);
-console.log("=== CONSULTA CONFIRMADA ===");
-console.log(exibirConsulta(consultaConfirmada));
+const consulta2 = criarConsulta(2, medico2, paciente2, new Date(), 400);
+const consulta3 = criarConsulta(3, medico3, paciente3, new Date(), 500);
+const consultaConfirmada1 = confirmarConsulta(consulta1);
+const consultaConfirmada2 = confirmarConsulta(consulta2);
+consultas.push(consultaConfirmada1, consultaConfirmada2, consulta3);
+console.log("=== LISTAR CONSULTAS POR STATUS ===");
+for (const consulta of listarConsultasPorStatus(consultas, "confirmada")) {
+    console.log(exibirConsulta(consulta));
+}
 //# sourceMappingURL=index.js.map
