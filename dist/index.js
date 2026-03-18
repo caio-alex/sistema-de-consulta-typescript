@@ -127,4 +127,12 @@ console.log("=== LISTAR CONSULTAS FUTURAS ===");
 for (const consulta of listarConsultasFuturas(consultas)) {
     console.log(exibirConsulta(consulta));
 }
+console.log("=== FATURAMENTO TOTAL ===");
+function calcularFaturamento(consultas) {
+    return consultas
+        .filter((consulta) => consulta.status === "realizada")
+        .reduce((total, consulta) => total + consulta.valor, 0);
+}
+const faturamento = calcularFaturamento(consultas);
+console.log(`Faturamento total: R$ ${faturamento.toFixed(2)}`);
 //# sourceMappingURL=index.js.map
