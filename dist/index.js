@@ -99,7 +99,6 @@ Status: ${consulta.status}
 function listarConsultasPorStatus(consultas, status) {
     return consultas.filter((consulta) => consulta.status === status);
 }
-const consultas = [];
 function listarConsultasFuturas(consultas) {
     const hoje = new Date();
     hoje.setHours(0, 0, 0, 0); // Zera horas para comparar apenas a data
@@ -111,6 +110,8 @@ function alterarStatusConsulta(consulta, novoStatus) {
         status: novoStatus,
     };
 }
+//=== ARRAY TIPADO DE CONSULTAS ===
+const consultas = [];
 let consulta1 = criarConsulta(1, medico1, paciente1, new Date(), 350);
 consulta1 = confirmarConsulta(consulta1);
 let consulta2 = criarConsulta(2, medico2, paciente2, new Date(), 400);

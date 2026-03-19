@@ -115,7 +115,6 @@ function listarConsultasPorStatus(consultas: Consulta[],status: StatusConsulta):
     return consultas.filter((consulta) => consulta.status === status);
 }
 
-const consultas: Consulta[] = [];
 
 function listarConsultasFuturas(consultas: Consulta[]): Consulta[] {
   const hoje = new Date();
@@ -130,6 +129,8 @@ function alterarStatusConsulta(consulta: Consulta, novoStatus: StatusConsulta): 
     }
 }
 
+//=== ARRAY TIPADO DE CONSULTAS ===
+const consultas: Consulta[] = [];
 
 let consulta1 = criarConsulta(
   1,
